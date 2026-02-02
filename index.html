@@ -3,44 +3,511 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>For You</title>
+        <title>For My Valentine</title>
+
+        <link
+            href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+
         <style>
+            :root {
+                --romantic-red: #ae0001;
+                --soft-cream: #fffaf0;
+                --text-grey: #4a4a4a;
+                --yes-green: #2ecc71;
+            }
+
             body {
-                font-family: sans-serif;
+                background-color: var(--soft-cream);
+                color: var(--text-grey);
+                line-height: 1.8;
+                font-family: "Inter", sans-serif;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+
+            h2 {
+                font-family: "Dancing Script", cursive;
+                font-size: 3rem;
+                color: var(--romantic-red);
+                margin-bottom: 20px;
+            }
+
+            .chapter-num {
+                font-size: 0.8rem;
+                letter-spacing: 4px;
+                color: #b2bec3;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+
+            .story-text {
+                font-size: 1.1rem;
+                max-width: 550px;
+                margin: 20px auto;
                 text-align: center;
-                background: #fff5f6;
             }
-            .container {
-                max-width: 600px;
-                margin: auto;
-                padding: 50px;
+
+            .section {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 60px 20px;
+                text-align: center;
             }
-            img {
-                width: 100%;
-                border-radius: 20px;
-                margin: 20px 0;
+
+            .photo-polaroid {
+                background: white;
+                padding: 15px 15px 60px 15px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+                border: 1px solid #eee;
+                max-width: 320px;
+                animation: float 6s ease-in-out infinite;
+                margin: 20px auto;
             }
+
+            .polaroid-caption {
+                font-family: "Dancing Script", cursive;
+                color: #636e72;
+                margin-top: 15px;
+                font-size: 1.2rem;
+            }
+
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0) rotate(-2deg);
+                }
+                50% {
+                    transform: translateY(-15px) rotate(2deg);
+                }
+            }
+
+            #decision-box {
+                margin-top: 30px;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                align-items: center;
+            }
+
             .btn {
-                background: #ff4d6d;
-                color: white;
-                padding: 15px 25px;
+                padding: 15px 40px;
+                font-size: 1.2rem;
+                border-radius: 50px;
                 border: none;
-                border-radius: 10px;
-                text-decoration: none;
                 cursor: pointer;
+                transition: all 0.4s ease;
+                font-weight: 600;
+                min-width: 120px;
+            }
+
+            .yes {
+                background: var(--romantic-red);
+                color: white;
+            }
+
+            .no {
+                background: #dfe6e9;
+                color: #636e72;
+            }
+
+            /* The magical transformation class */
+            .turned-yes {
+                background: var(--yes-green) !important;
+                color: white !important;
+                transform: scale(1.1);
+            }
+
+            /* Story specific styles */
+            .anime-box {
+                border: 1px solid var(--romantic-red);
+                padding: 20px;
+                font-style: italic;
+                color: var(--romantic-red);
+                margin-bottom: 20px;
+                border-radius: 10px;
+            }
+
+            .awkward-meter {
+                width: 250px;
+                height: 10px;
+                background: #eee;
+                border-radius: 50px;
+                margin: 20px auto;
+                overflow: hidden;
+            }
+
+            .meter-fill {
+                width: 100%;
+                height: 100%;
+                background: var(--romantic-red);
+                animation: fillBar 3s ease-out;
+            }
+
+            @keyframes fillBar {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 100%;
+                }
+            }
+            .letter-container {
+                background: white;
+                padding: 40px;
+                max-width: 500px;
+                border-radius: 5px;
+                box-shadow:
+                    inset 0 0 50px rgba(0, 0, 0, 0.02),
+                    0 5px 15px rgba(0, 0, 0, 0.05);
+                border-left: 5px solid var(--romantic-red); /* Looks like a letter flap */
+                margin: 20px auto;
+            }
+
+            .handwritten-note {
+                font-family:
+                    "Inter", sans-serif; /* Keeps it clean and readable */
+                font-size: 1.1rem;
+                line-height: 2;
+                color: var(--text-grey);
+                text-align: left; /* Left align for a letter feel */
+                margin: 0;
+            }
+
+            iframe {
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+            .letter-container {
+                background: white;
+                padding: 40px;
+                max-width: 500px;
+                border-radius: 2px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                border-left: 4px solid var(--romantic-red);
+                margin: 20px auto;
+            }
+
+            .handwritten-note {
+                font-size: 1.1rem;
+                line-height: 2;
+                color: var(--text-grey);
+                text-align: left;
+            }
+
+            /* Button Swap Classes */
+            .btn-grey {
+                background: #dfe6e9 !important;
+                color: #636e72 !important;
+            }
+
+            .btn-red {
+                background: var(--romantic-red) !important;
+                color: white !important;
             }
         </style>
     </head>
     <body>
-        <div class="container">
-            <h1>Hey [Name] ❤️</h1>
-            <p>
-                I know we aren't seeing each other until the 14th, so I built
-                this for you.
+        <div class="section" data-aos="fade-up">
+            <h1
+                style="
+                    font-family: &quot;Dancing Script&quot;;
+                    font-size: 4rem;
+                    color: var(--romantic-red);
+                    margin: 0;
+                "
+            >
+                Hi Cherry 🍒
+            </h1>
+            <p style="font-style: italic; color: #b2bec3">
+                I built this for you because I couldn't wait until the 14th.
             </p>
-            <div id="content">
-                <p>Loading our memories...</p>
+            <div style="margin-top: 50px; opacity: 0.5">Scroll down</div>
+        </div>
+
+        <div class="section" data-aos="fade-right">
+            <div class="chapter-num">Chapter 01</div>
+            <h2>Our First Conversation</h2>
+            <div class="anime-box">"Are you watching Dan Da Dan?"</div>
+            <p class="story-text">
+                I spent a long time thinking my hobbies were just things I’d
+                enjoy alone. I thought I’d have to choose between someone I was
+                attracted to and someone who truly "got" me. Then you asked that
+                question. Never knew that one question would change my life
+            </p>
+        </div>
+
+        <div class="section" data-aos="zoom-in">
+            <div class="chapter-num">Chapter 02</div>
+            <h2>A Sky Full of Stars</h2>
+            <div class="photo-polaroid">
+                <img
+                    src="images/coldplay-look.jpg"
+                    style="width: 100%"
+                    alt="Coldplay"
+                />
+                <p class="polaroid-caption">Same stadium, same songs...</p>
+            </div>
+            <p class="story-text">
+                Hundreds of kilometers from home(988 tbe), we were hearing the
+                same songs. I was so sad that I couldn't be by your side that
+                night. But when I saw you in that outfit... my heart skipped a
+                beat . I fell for you right there.
+            </p>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="chapter-num">Chapter 03</div>
+            <h2>The Synchronization</h2>
+            <div class="sync-container">
+                <div class="thought-bubble" data-aos="zoom-in">
+                    "I have always wanted to go Ebisu"
+                </div>
+                <div class="connector">⚡</div>
+                <div
+                    class="thought-bubble"
+                    data-aos="zoom-in"
+                    data-aos-delay="200"
+                >
+                    "...HEHEHE"
+                </div>
+            </div>
+            <div class="photo-polaroid" style="transform: rotate(1deg)">
+                <img
+                    src="images/restaurant-date.jpg"
+                    style="width: 100%"
+                    alt="Restaurant Date"
+                />
+                <p class="polaroid-caption">The Mind-Reading Dinner</p>
+            </div>
+            <p class="story-text">
+                Just as I was taking you, you told me how you had always wanted
+                to go there, no knowing that it was I that would be the first to
+                take you. In that moment I felt we had more in common that I
+                could have imagined
+            </p>
+        </div>
+
+        <div class="section" data-aos="fade-right">
+            <div class="chapter-num">Chapter 04</div>
+            <h2>The Winning Smile</h2>
+            <div class="scoreboard-container">
+                <div class="score-card">
+                    <span class="player-name">You</span
+                    ><span class="score-value">🏆 1</span>
+                </div>
+                <div class="vs">VS</div>
+                <div class="score-card">
+                    <span class="player-name">Me</span
+                    ><span class="score-value"> 0</span>
+                </div>
+            </div>
+            <div class="photo-polaroid" style="transform: rotate(-2deg)">
+                <img
+                    src="images/mini-golf.jpg"
+                    style="width: 100%"
+                    alt="Mini Golf"
+                />
+                <p class="polaroid-caption">Evidence of the "Alleged" Win</p>
+            </div>
+            <p class="story-text">
+                I’ll let the record show: I allowed you that victory. But seeing
+                you laugh as you "beat" me was worth more than any win.
+            </p>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="chapter-num">Chapter 05</div>
+            <h2>The Stakeholder Meeting</h2>
+            <div class="awkward-meter"><div class="meter-fill"></div></div>
+            <p
+                style="
+                    font-size: 0.8rem;
+                    color: var(--romantic-red);
+                    margin-top: -10px;
+                "
+            >
+                Awkwardness Level: 100%
+            </p>
+            <div class="photo-polaroid" style="transform: rotate(3deg)">
+                <img
+                    src="images/family-function.jpg"
+                    style="width: 100%"
+                    alt="Family"
+                />
+                <p class="polaroid-caption">Meeting the Fam ❤️</p>
+            </div>
+            <p class="story-text">
+                I was so nervous for you to meet my parents, but you were the
+                one who pushed to be there for Ganpati. Seeing you charm up my
+                friends AND MY PARENTS, god I knew I made the right choice.
+            </p>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="chapter-num">Chapter 06</div>
+            <h2>The Main Event</h2>
+            <div class="glow-container">
+                <div class="photo-polaroid birthday-glow">
+                    <img
+                        src="images/birthday.jpg"
+                        style="width: 100%"
+                        alt="Birthday"
+                    />
+                    <p class="polaroid-caption">Your Special Night</p>
+                </div>
+            </div>
+            <p class="story-text">
+                I took you out, but I was the one who got the gift. Every time I
+                take you out I feel lucky, but that night, seeing you in your
+                dress, seeing you smile, laugh and cry (for the bouquet), made
+                me fall for you even more.
+            </p>
+        </div>
+
+        <div class="section" data-aos="fade-right">
+            <div class="chapter-num">Chapter 07</div>
+            <h2>The Simple Things</h2>
+            <div class="photo-polaroid cheese-effect">
+                <img
+                    src="images/chilis-date.jpg"
+                    style="width: 100%"
+                    alt="Chilis"
+                />
+                <p class="polaroid-caption">The Performance Review 🧀</p>
+            </div>
+            <p class="story-text">
+                From fancy dinners to messy cheese pulls at Chili's—there's
+                nobody else I'd rather act like a kid with. This day went from
+                being a disaster to one of the most fun days we have ever had,
+                and it made me realise, its not really where we go, as long as
+                its you, its amazing.
+            </p>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="chapter-num">Final Note</div>
+            <div class="letter-container">
+                <p class="handwritten-note">
+                    To be honest if you asked One year ago that I would be
+                    taking you out for valantines? I wouldm't be suprised. But
+                    if you told me you would be the reason I laugh so hard, you
+                    would be the reason I feel alive, you would be the reason I
+                    am at a loss of words(like right now not even kidding), then
+                    I would be suprised. I just have one last thing I wanted to
+                    ask you.
+                </p>
             </div>
         </div>
+
+        <div class="section" id="final-ask" data-aos="flip-up">
+            <h2 style="font-size: 4rem">Will you be my Valentine?</h2>
+            <div id="decision-box">
+                <button id="yes-btn" class="btn yes" onclick="revealLove()">
+                    YES
+                </button>
+                <button
+                    id="no-btn"
+                    class="btn no"
+                    onmouseover="swapButtons()"
+                    onmouseout="resetButtons()"
+                    onclick="revealLove()"
+                >
+                    No
+                </button>
+            </div>
+
+            <div
+                id="calendar-reveal"
+                style="
+                    display: none;
+                    width: 100%;
+                    max-width: 500px;
+                    margin-top: 40px;
+                "
+            >
+                <h2 style="color: var(--romantic-red)">
+                    See you on the 14th! ❤️
+                </h2>
+                <iframe
+                    src="https://calendar.app.google/huWqMTZd5ZgkUMMMA"
+                    style="border: 0"
+                    width="100%"
+                    height="400"
+                    frameborder="0"
+                ></iframe>
+            </div>
+        </div>
+
+        <div
+            class="section"
+            style="background: white; width: 100%; min-height: 40vh"
+        >
+            <p style="font-style: italic; font-size: 1rem; color: #b2bec3">
+                "I know I can't be there to ask you this in person today. But I
+                wanted to build something that shows you how much effort you are
+                worth to me. Every line of code, every photo, and every memory
+                here is a piece of why I love you."
+            </p>
+        </div>
+
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+        <script>
+            AOS.init({ duration: 1500 });
+
+            // The magical "Dual-Yes" logic
+            function swapButtons() {
+                const yesBtn = document.getElementById("yes-btn");
+                const noBtn = document.getElementById("no-btn");
+
+                // Swap Texts
+                yesBtn.innerHTML = "No";
+                noBtn.innerHTML = "YES";
+
+                // Swap Styles
+                yesBtn.classList.add("btn-grey");
+                yesBtn.classList.remove("yes");
+
+                noBtn.classList.add("btn-red");
+                noBtn.classList.remove("no");
+            }
+
+            function resetButtons() {
+                const yesBtn = document.getElementById("yes-btn");
+                const noBtn = document.getElementById("no-btn");
+
+                // Reset Texts
+                yesBtn.innerHTML = "YES";
+                noBtn.innerHTML = "No";
+
+                // Reset Styles
+                yesBtn.classList.remove("btn-grey");
+                yesBtn.classList.add("yes");
+
+                noBtn.classList.remove("btn-red");
+                noBtn.classList.add("no");
+            }
+
+            function revealLove() {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                });
+                document.getElementById("decision-box").style.display = "none";
+                document.getElementById("calendar-reveal").style.display =
+                    "block";
+            }
+        </script>
     </body>
 </html>
